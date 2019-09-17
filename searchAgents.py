@@ -475,8 +475,11 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-    return 0
-
+    food = foodGrid.asList()
+    if len(food) == 0:
+        return 0
+    closestFood, closestCost = min([(f, util.manhattanDistance(f, position)) for f in food], key=lambda t:t[1])
+    return foodGrid.count() + closestCost - 1
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
     def registerInitialState(self, state):
